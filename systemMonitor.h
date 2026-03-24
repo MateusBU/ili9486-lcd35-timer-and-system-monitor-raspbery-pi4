@@ -20,6 +20,7 @@
 /* ===========================
  *   FUNCTION DECLARATIONS
  * =========================== */
+void systemMonitor_getRamUsage(float *usedMB, float *totalMB);
 int16_t systemMonitor_getTemperature();
 
 #endif
