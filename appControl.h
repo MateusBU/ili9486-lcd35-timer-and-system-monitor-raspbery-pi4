@@ -1,24 +1,17 @@
-#ifndef CLOCK_H
-#define CLOCK_H
+#ifndef APP_CONTROL_H
+#define APP_CONTROL_H
 /* ===========================
  *          INCLUDES
  * =========================== */
-#include <stdio.h>
-#include <stdint.h>
 
 /* ===========================
  *           DEFINES
  * =========================== */
-#define dN_CLOCK_STYLES (int)(sizeof(clock_styles)/sizeof(clock_styles[0]))
 
 /* ===========================
  *            TYPES
  * =========================== */
-typedef void (*ClockFn)(struct tm *);
- 
-static ClockFn clock_styles[] = {
 
-};
 /* ===========================
  *     GLOBAL VARIABLES
  * =========================== */
@@ -26,8 +19,6 @@ static ClockFn clock_styles[] = {
 /* ===========================
  *   FUNCTION DECLARATIONS
  * =========================== */
-
-void clock_printfCurrentTime();
-void clock_getCurrentTime(int *hour, int *minute, int *second);
+void appControl_Handler();
 
 #endif

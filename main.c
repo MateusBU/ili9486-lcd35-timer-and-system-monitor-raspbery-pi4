@@ -1,24 +1,60 @@
 /* ===========================
 *          INCLUDES
 * =========================== */
+#include <signal.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <time>
+
+#include "appControl.h"
+#include "clock.h"
+#include "ili9486.h"
 #include "systemMonitor.h"
+/* ===========================
+ *           DEFINES
+ * =========================== */
 
-// ─── defines ─────────────────────────────────────────────────────────────────
+/* ===========================
+ *     LOCAL VARIABLES
+ * =========================== */
 
-// ─── functions ─────────────────────────────────────────────────────────────────
+/* ===========================
+ *    LOCAL PROTOTYPES
+ * =========================== */
+static void on_signal(int s);
+
+/* ===========================
+ *   GLOBAL FUNCTIONS
+ * =========================== */
+
 int main(void) {
-    float used = 0, total = 0;
-    systemMonitor_getRamUsage(&used, &total);
-    printf("USED: %.2f MB, TOTAL: %.2f MB\n", used, total);
+    signal(SIGINT,  on_signal);
+    signal(SIGTERM, on_signal);
 
-    char ip[32]; 
-    systemMonitor_getIP(ip, sizeof(ip));
-    printf("IP: %s\n", ip);
+    printf("=== Clock + System Monitor ===\n");
+
+    if(lcd_init() < 0) {
+        fprintf(stderr, "LCD init failed\n"); 
+        return 1;
+    }
+       
     
     while(1) {
-          
+        appControl_Handler();
+
+        // Sleep ~50ms then check again
+        struct timespec ts = { .tv_sec = 0, .tv_nsec = 50000000 };
+        nanosleep(&ts, NULL);
     }
+    lcd_close();
     return 0;
+}
+ /* ===========================
+ *   LOCAL FUNCTIONS
+ * =========================== */
+static void on_signal(int s) { 
+    (void)s; 
+    lcd_close(); 
+    exit(0);
 }
