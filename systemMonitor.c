@@ -8,7 +8,9 @@
 /* ===========================
  *           DEFINES
  * =========================== */
-
+#define dPATH_RAM_USAGE "/proc/meminfo"
+#define dPATH_TEMPERATURE "/sys/class/thermal/thermal_zone0/temp"
+#define dPATH_IP "hostname -I 2>/dev/null | awk '{print $1}'"
 /* ===========================
  *     LOCAL VARIABLES
  * =========================== */
@@ -21,7 +23,7 @@
  *   GLOBAL FUNCTIONS
  * =========================== */
 void systemMonitor_getRamUsage(float *usedMB, float *totalMB) {
-    FILE *fileMem = fopen("/proc/meminfo", "r");
+    FILE *fileMem = fopen(dPATH_RAM_USAGE, "r");
 
     if(fileMem == NULL) {
         *usedMB = *totalMB = 0;
@@ -72,7 +74,7 @@ void systemMonitor_getRamUsage(float *usedMB, float *totalMB) {
 int16_t systemMonitor_getTemperature() {
     FILE *temperatureFile;
     int temperatureValue;
-    const char *pathFile = "/sys/class/thermal/thermal_zone0/temp";
+    const char *pathFile = dPATH_TEMPERATURE;
     temperatureFile = fopen(pathFile, "r");
     if(temperatureFile == NULL) {
         return -100;
@@ -82,6 +84,25 @@ int16_t systemMonitor_getTemperature() {
     printf ("The temperature is %d C.\n", temperatureValue);
     fclose(temperatureFile);
     return temperatureValue;
+}
+
+void systemMonitor_getIP(char *buffer, int bufsz) {
+    FILE *file = popen(dPATH_IP, "r");
+
+    if(file == NULL) {
+        strncpy(buffer, "N/A", bufsz);
+        return;
+    }
+    fgets(buffer, bufsz, file);
+
+    int len = strlen(buffer);
+    if(len > 0 && buffer[len-1] == '\n') {
+        buffer[len-1] = '\0';
+    }
+    if(strlen(buffer) == 0) {
+        strncpy(buffer, "N/A", bufsz);
+    }
+
 }
 /* ===========================
  *   LOCAL FUNCTIONS
