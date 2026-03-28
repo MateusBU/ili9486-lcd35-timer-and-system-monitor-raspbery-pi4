@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <time>
+#include <time.h>
 
 #include "appControl.h"
 #include "clock.h"

@@ -3,7 +3,7 @@ CFLAGS  = -O2 -Wall -Wextra
 LDFLAGS = -lwiringPi -lm
 
 TARGET  = monitor
-SRCS    = main.c systemMonitor.c ili9486.c
+SRCS    = main.c appControl.c clock.c systemMonitor.c ili9486.c
 
 .PHONY: all run clean
 

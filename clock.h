@@ -9,16 +9,13 @@
 /* ===========================
  *           DEFINES
  * =========================== */
-#define dN_CLOCK_STYLES (int)(sizeof(clock_styles)/sizeof(clock_styles[0]))
+
 
 /* ===========================
  *            TYPES
  * =========================== */
-typedef void (*ClockFn)(struct tm *);
- 
-static ClockFn clock_styles[] = {
-
-};
+typedef void (*ClockFn)();
+extern const int dN_CLOCK_STYLES;
 /* ===========================
  *     GLOBAL VARIABLES
  * =========================== */
@@ -29,5 +26,8 @@ static ClockFn clock_styles[] = {
 
 void clock_printfCurrentTime();
 void clock_getCurrentTime(int *hour, int *minute, int *second);
-
+void clock_digital();
+void clock_readCurrentTime();
+ 
+extern ClockFn clockStyles[];
 #endif
