@@ -22,7 +22,7 @@
  * =========================== */
 void appControl_Handler() {
     static int style = 0, last_sec = -1, last_min = -1;
-    
+
     int hour, min, sec;
     clock_readCurrentTime();
     clock_getCurrentTime(&hour, &min, &sec);
@@ -32,7 +32,7 @@ void appControl_Handler() {
         last_sec = sec;
         style = sec % dN_CLOCK_STYLES;
         
-        clockStyles[style]();
+        clockStyles[style](hour, min, sec);
         // Flush everything at once
         fb_flush();
  

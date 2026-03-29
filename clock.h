@@ -14,8 +14,8 @@
 /* ===========================
  *            TYPES
  * =========================== */
-typedef void (*ClockFn)();
-extern const int dN_CLOCK_STYLES;
+typedef void (*ClockFn)(int hour, int min, int sec);
+extern int dN_CLOCK_STYLES;
 /* ===========================
  *     GLOBAL VARIABLES
  * =========================== */

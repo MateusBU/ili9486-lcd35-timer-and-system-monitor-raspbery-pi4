@@ -498,3 +498,14 @@ void fb_draw_string(uint16_t x, uint16_t y, const char *s,
         s++;
     }
 }
+
+uint16_t fb_string_width(const char *s, uint8_t scale) {
+    uint16_t len = 0;
+
+    while (*s) {
+        if (*s != '\n') len++;
+        s++;
+    }
+
+    return len * 6 * scale;
+}

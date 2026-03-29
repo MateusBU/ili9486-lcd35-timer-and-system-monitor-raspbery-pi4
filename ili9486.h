@@ -81,6 +81,7 @@ void fb_draw_circle(int16_t cx, int16_t cy, int16_t r, uint16_t color);
 void fb_fill_circle(int16_t cx, int16_t cy, int16_t r, uint16_t color);
 void fb_draw_char(uint16_t x, uint16_t y, char c, uint16_t fg, uint16_t bg, uint8_t scale);
 void fb_draw_string(uint16_t x, uint16_t y, const char *s, uint16_t fg, uint16_t bg, uint8_t scale);
+uint16_t fb_string_width(const char *s, uint8_t scale);
 
 // ─── Legacy API (writes directly to display, no buffer) ──────────────────────
 int  lcd_init(void);
