@@ -99,6 +99,9 @@ void clock_digital(int hour, int minute, int second) {
     int dlen = strlen(date);
     fb_draw_string((LCD_WIDTH - dlen*6*2)/2, 200, date, rgb(0, 150, 60), bg, 2);
 
+    // DAY OF YEAR / WEEK NUMBER
+    strftime(date, sizeof(date), "Week %V -- Day %j", t);
+    fb_draw_string((LCD_WIDTH - (int) strlen(date)*6*2)/2, 240, date, rgb(0, 100, 40), bg, 2);
 }
 
 void clock_readCurrentTime() {
